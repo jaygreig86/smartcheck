@@ -1,13 +1,9 @@
 #!/usr/bin/env bash
-# smart-check.sh
-#
-# Purpose:
-#   simple bash script that parses the output provided by smartctl
-#   to show relevant information about predictive failures
-#   things are wrong.
-#
-# Original Author: James Greig
-# Licence: GNU GPL v3
+
+
+PATH=/usr/local/sbin:$PATH
+export PATH
+
 
 POSITIONAL=()
 while [[ $# -gt 0 ]]
@@ -113,7 +109,6 @@ function smartcheck()
 
         # SAS post factory defects
 
-        #var=`smartctl -a $1 | egrep "write:" | awk '{print $8}'`
         var=`echo "$smartoutput"  | grep -i "grown defect" | sed 's/Elements in grown defect list: //'`
         if [[ $var -gt 0 ]] && [ ${DEBUG} ]
         then
@@ -148,7 +143,7 @@ done
 #for i in `ls /dev/pass*|egrep '^(\/)dev(\/)pass[0-9]+$'`;
 for i in `find /dev -type c -name 'pass*' | egrep '^(\/)dev(\/)pass[0-9]$'`;
 do
-        smartcheck "-d sat $i" $DEBUG
+        smartcheck "$i" $DEBUG
         rval=$?
         agerror=$(($agerror + $rval))
 done
