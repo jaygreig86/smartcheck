@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+# smart-check.sh
+#
+# Purpose:
+#   simple bash script that parses the output provided by smartctl
+#   to show relevant information about predictive failures
+#   things are wrong.
+#
+# Original Author: James Greig
+# Licence: GNU GPL v3
 
 
 PATH=/usr/local/sbin:$PATH
